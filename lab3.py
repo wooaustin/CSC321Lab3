@@ -17,7 +17,7 @@ def compare_strings(a, b):
     
 def truncate_digest(d1, d2):
     mask_8 = 255
-    masked_d1 = ord(d1) & mask_8
+    masked_d1 = (b d1) & mask_8
     masked_d2 = ord(d2) & mask_8
     
     
