@@ -15,10 +15,21 @@ def compare_strings(a, b):
     print(count)
 
     
+def return_bits(d_bytes):
+    a = []
+    for i in range(len(d_bytes)):
+        if i == 2:
+            break
+        a.append(d_bytes[i])
+    return a
+    
+    
 def truncate_digest(d1, d2):
-    mask_8 = 255
-    masked_d1 = (b d1) & mask_8
-    masked_d2 = ord(d2) & mask_8
+    b = bytearray()
+    d1_bytes = b.extend(map(ord,d1))
+    d2_bytes = b.extend(map(ord,d2))
+    truncate_d1 = return_bits(d1_bytes)
+    truncate_d2 = return_bits(d2_bytes)
     
     
 def task1_generate_digest():
