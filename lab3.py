@@ -55,34 +55,50 @@ def task1_generate_digest():
     compare_strings(a, b)
     return a,b
 
-def task2():
+# Finds the collision for the given bit_input_size
+def find_collisions(bits):
     string_length = 4
     start = time.time()
     input_size = 0
+    bit_size = bits
     while string_length < 50:
         perm_list = str_perm_gen(string_length)
-        bit_size = 8
         collision_dict = {}
+        # Iterate through all permutations for string_length
         for perm in perm_list:
             input_size += 1
             trunced_dig = truncate_digest(perm,bit_size)
+            # Collision is found, reset everything for next bit_size
             if trunced_dig in collision_dict:
-            #print(collision_dict)
-                print(trunced_dig)
-                print(collision_dict[trunced_dig], perm)
+                # print(trunced_dig)
+                # print(collision_dict[trunced_dig], perm)
                 end = time.time()
-                print("Digest size: " + bit_size + "Input Number: "+ input_size + "Total Time: " + (end - start))
-                exit()
+                print("Digest size: " + str(bit_size) + " Input Number: "+ str(input_size) + " Total Time: " + str(end - start))
+                return bit_size, input_size, (end - start)
             else:
                 collision_dict[trunced_dig] = perm
-        string_length += 2
+        # Only gets here if no collision is found
+        string_length += 1
 
+        
+def task_1b():
+    bits = 8
+    b = []
+    inputs = []
+    time_list = []
+    while bits < 50:
+        bit_size, input_size, time = find_collisions(bits)
+        b.append(bit_size)
+        inputs.append(input_size)
+        time_list.append(time)
+        bits += 2
+    
 def main():
     # Task 1a
     #d1, d2 = task1_generate_digest()
 
     # Task 1b
-    task2()
-    #truncate_digest(b"test", 2)
+    task_1b()
+    
 
 main()
