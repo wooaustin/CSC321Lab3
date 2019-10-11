@@ -54,18 +54,26 @@ def task1_generate_digest():
     return a,b
 
 def task2():
-    perm_list = str_perm_gen(6)
-    bit_size = 44
-    collision_dict = {}
-    for perm in perm_list:
-        trunced_dig = truncate_digest(perm,bit_size)
-        if trunced_dig in collision_dict:
+    string_length = 4
+    start = time.time()
+    input_size = 0
+    while string_length < 50:
+        perm_list = str_perm_gen(string_length)
+        bit_size = 8
+        collision_dict = {}
+        for perm in perm_list:
+            input_size += 1
+            trunced_dig = truncate_digest(perm,bit_size)
+            if trunced_dig in collision_dict:
             #print(collision_dict)
-            print(trunced_dig)
-            print(collision_dict[trunced_dig], perm)
-            exit()
-        else:
-            collision_dict[trunced_dig] = perm
+                print(trunced_dig)
+                print(collision_dict[trunced_dig], perm)
+                end = time.time()
+                print("Digest size: " + bit_size + "Input Number: "+ input_size + "Total Time: " + (end - start))
+                exit()
+            else:
+                collision_dict[trunced_dig] = perm
+        string_length += 2
 
 def main():
     # Task 1a
