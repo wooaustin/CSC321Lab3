@@ -3,6 +3,8 @@ import math
 from itertools import product
 import os
 import binascii
+import time
+
 
 def process_sha(input):
     h = SHA256.new()
