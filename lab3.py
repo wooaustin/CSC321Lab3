@@ -81,18 +81,27 @@ def find_collisions(bits):
         string_length += 1
 
         
+def write_file(bit_size, inputs_size, time):
+    f = open("output.dat", "w")
+    for i in range(len(bit_size)):
+        f.write("Bitsize: " + str(bit_size[i]) + " Input size: " + str(inputs_size[i]) + " Time: " + str(time[i]) + "\n")
+    f.close()
+      
+        
 def task_1b():
     bits = 8
     b = []
     inputs = []
     time_list = []
-    while bits < 50:
+    while bits < 52:
         bit_size, input_size, time = find_collisions(bits)
         b.append(bit_size)
         inputs.append(input_size)
         time_list.append(time)
         bits += 2
+    write_file(b, inputs, time_list)
     
+
 def main():
     # Task 1a
     #d1, d2 = task1_generate_digest()
