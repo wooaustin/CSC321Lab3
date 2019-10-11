@@ -93,7 +93,7 @@ def task_1b():
     b = []
     inputs = []
     time_list = []
-    while bits < 14:
+    while bits < 52:
         bit_size, input_size, time = find_collisions(bits)
         b.append(bit_size)
         inputs.append(input_size)
