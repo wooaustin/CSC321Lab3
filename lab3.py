@@ -105,23 +105,6 @@ def task_1b():
         bits += 2
     write_file(b, inputs, time_list)
 
-def filter_name(line):
-    s = ""
-    for i in line:
-        if i == ":":
-            return s
-    return s
-
-def filter_hash(line):
-    s = ""
-    flag = False
-    for i in line:
-        if i == ":":
-            flag = True
-            continue
-        if flag == True:
-            s += i
-    return s
 
 def openShadowFile():
     f = open("shadow.txt")
@@ -175,15 +158,15 @@ def task_2():
     salts.append("rMeWZtAVcGHLEiDNeKCz8O")
     salts.append("6ypcazOOkUT/a7EwMuIjH.")
     i = 0
-    # Group 1
-    for word in words:
-        hashed = bcrypt.hashpw(word, salt)
-        for user in group_user[0]:
-                
-                
-           # Implement bcrypt here
-    #print(hashed)
-        #break
+    # TODO Finish here salts are indexed according to group
+    # group_user is list of string lists
+    # group_hash is list of string lists
+    # Word is a list of words we are suppose to try
+    # 1. Loop through all words for each salt, hash each word
+    # 2. Check the output of each hash with the hash for the associated name
+    # 3. Check the entire salt group at a time to reduce the amount of hashing
+    # 4. If match, remove the name/hash from the list so you reduce comparisons
+    # 5. Once you find a match for each person, move onto the next group
         
         
 def main():
