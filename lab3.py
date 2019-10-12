@@ -4,6 +4,8 @@ from itertools import product
 import os
 import binascii
 import time
+import bcrypt
+import nltk
 
 
 def process_sha(input):
@@ -21,6 +23,8 @@ def compare_strings(a, b):
     print(count)
 
 
+
+    
 def return_bits(d_bytes):
     a = []
     for i in range(len(d_bytes)):
@@ -100,14 +104,98 @@ def task_1b():
         time_list.append(time)
         bits += 2
     write_file(b, inputs, time_list)
-    
 
+def filter_name(line):
+    s = ""
+    for i in line:
+        if i == ":":
+            return s
+    return s
+
+def filter_hash(line):
+    s = ""
+    flag = False
+    for i in line:
+        if i == ":":
+            flag = True
+            continue
+        if flag == True:
+            s += i
+    return s
+
+def openShadowFile():
+    f = open("shadow.txt")
+    count = 0
+    group1Names = ["Bilbo", "Gandalf", "Gandalf"]
+    group2Names = ['Fili', 'Kili']
+    group3Names = ['Balin', 'Dwalin', 'Oin']
+    group4Names = ['Gloin', 'Dori', 'Nori']
+    group5Names = ['Ori', 'Bifur', 'Bofur']
+    group6Names = ['Durin']
+    group1Hash = ['$J9FW66ZdPI2nrIMcOxFYI.qx268uZn.ajhymLP/YHaAsfBGP3Fnm', 'J9FW66ZdPI2nrIMcOxFYI.q2PW6mqALUl2/uFvV9OFNPmHGNPa6YC', 'J9FW66ZdPI2nrIMcOxFYI.6B7jUcPdnqJz4tIUwKBu8lNMs5NdT9q']
+    group2Hash = ['M9xNRFBDn0pUkPKIVCSBzuwNDDNTMWlvn7lezPr8IwVUsJbys3YZm', 'M9xNRFBDn0pUkPKIVCSBzuPD2bsU1q8yZPlgSdQXIBILSMCbdE4Im']
+    group3Hash = ['xGKjb94iwmlth954hEaw3O3YmtDO/mEFLIO0a0xLK1vL79LA73Gom','xGKjb94iwmlth954hEaw3OFxNMF64erUqDNj6TMMKVDcsETsKK5be', 'xGKjb94iwmlth954hEaw3OcXR2H2PRHCgo98mjS11UIrVZLKxyABK']
+    group4Hash = ['/8UByex2ktrWATZOBLZ0DuAXTQl4mWX1hfSjliCvFfGH7w1tX5/3q','/8UByex2ktrWATZOBLZ0Dub5AmZeqtn7kv/3NCWBrDaRCFahGYyiq', '/8UByex2ktrWATZOBLZ0DuER3Ee1GdP6f30TVIXoEhvhQDwghaU12'] 
+    group5Hash = ['rMeWZtAVcGHLEiDNeKCz8OiERmh0dh8AiNcf7ON3O3P0GWTABKh0O','rMeWZtAVcGHLEiDNeKCz8OMoFL0k33O8Lcq33f6AznAZ/cL1LAOyK', 'rMeWZtAVcGHLEiDNeKCz8Ose2KNe821.l2h5eLffzWoP01DlQb72O']
+    group6Hash = ['6ypcazOOkUT/a7EwMuIjH.qbdqmHPDAC9B5c37RT9gEw18BX6FOay']
+    groups_name = []
+    groups_hash = []
+    groups_name.append(group1Names)
+    groups_name.append(group2Names)
+    groups_name.append(group3Names)
+    groups_name.append(group4Names)
+    groups_name.append(group5Names)
+    groups_name.append(group6Names)
+    groups_hash.append(group1Hash)
+    groups_hash.append(group2Hash)
+    groups_hash.append(group3Hash)
+    groups_hash.append(group4Hash)
+    groups_hash.append(group5Hash)
+    groups_hash.append(group6Hash)
+    print(groups_name, groups_hash)
+    return groups_name, groups_hash
+
+def getWords():
+    words = []
+    for book in nltk.corpus.gutenberg.fileids():
+        for word in nltk.corpus.gutenberg.words(book):
+            if len(word) >= 6 or len(word) <=10:
+                words.append(word.encode('utf-8'))
+    return words
+        
+
+def task_2():
+    group_user, group_hash = openShadowFile()
+    words = getWords()
+    salts = []
+    salts.append("$J9FW66ZdPI2nrIMcOxFYI.")
+    salts.append("M9xNRFBDn0pUkPKIVCSBzu")
+    salts.append("xGKjb94iwmlth954hEaw3O")
+    salts.append("/8UByex2ktrWATZOBLZ0Du")
+    salts.append("rMeWZtAVcGHLEiDNeKCz8O")
+    salts.append("6ypcazOOkUT/a7EwMuIjH.")
+    i = 0
+    # Group 1
+    for word in words:
+        hashed = bcrypt.hashpw(word, salt)
+        for user in group_user[0]:
+                
+                
+           # Implement bcrypt here
+    #print(hashed)
+        #break
+        
+        
 def main():
     # Task 1a
     #d1, d2 = task1_generate_digest()
 
     # Task 1b
-    task_1b()
+    #task_1b()
+    
+    # Task 2
+    task_2()
+
     
 
 main()
