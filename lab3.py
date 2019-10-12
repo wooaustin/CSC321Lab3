@@ -24,7 +24,7 @@ def compare_strings(a, b):
 
 
 
-    
+
 def return_bits(d_bytes):
     a = []
     for i in range(len(d_bytes)):
@@ -84,14 +84,14 @@ def find_collisions(bits):
         # Only gets here if no collision is found
         string_length += 1
 
-        
+
 def write_file(bit_size, inputs_size, time):
     f = open("output.dat", "w")
     for i in range(len(bit_size)):
         f.write("Bitsize: " + str(bit_size[i]) + " Input size: " + str(inputs_size[i]) + " Time: " + str(time[i]) + "\n")
     f.close()
-      
-        
+
+
 def task_1b():
     bits = 8
     b = []
@@ -109,16 +109,16 @@ def task_1b():
 def openShadowFile():
     f = open("shadow.txt")
     count = 0
-    group1Names = ["Bilbo", "Gandalf", "Gandalf"]
+    group1Names = ["Bilbo", "Gandalf", "Thorin"]
     group2Names = ['Fili', 'Kili']
     group3Names = ['Balin', 'Dwalin', 'Oin']
     group4Names = ['Gloin', 'Dori', 'Nori']
     group5Names = ['Ori', 'Bifur', 'Bofur']
     group6Names = ['Durin']
-    group1Hash = ['$J9FW66ZdPI2nrIMcOxFYI.qx268uZn.ajhymLP/YHaAsfBGP3Fnm', 'J9FW66ZdPI2nrIMcOxFYI.q2PW6mqALUl2/uFvV9OFNPmHGNPa6YC', 'J9FW66ZdPI2nrIMcOxFYI.6B7jUcPdnqJz4tIUwKBu8lNMs5NdT9q']
+    group1Hash = ['J9FW66ZdPI2nrIMcOxFYI.qx268uZn.ajhymLP/YHaAsfBGP3Fnm', 'J9FW66ZdPI2nrIMcOxFYI.q2PW6mqALUl2/uFvV9OFNPmHGNPa6YC', 'J9FW66ZdPI2nrIMcOxFYI.6B7jUcPdnqJz4tIUwKBu8lNMs5NdT9q']
     group2Hash = ['M9xNRFBDn0pUkPKIVCSBzuwNDDNTMWlvn7lezPr8IwVUsJbys3YZm', 'M9xNRFBDn0pUkPKIVCSBzuPD2bsU1q8yZPlgSdQXIBILSMCbdE4Im']
     group3Hash = ['xGKjb94iwmlth954hEaw3O3YmtDO/mEFLIO0a0xLK1vL79LA73Gom','xGKjb94iwmlth954hEaw3OFxNMF64erUqDNj6TMMKVDcsETsKK5be', 'xGKjb94iwmlth954hEaw3OcXR2H2PRHCgo98mjS11UIrVZLKxyABK']
-    group4Hash = ['/8UByex2ktrWATZOBLZ0DuAXTQl4mWX1hfSjliCvFfGH7w1tX5/3q','/8UByex2ktrWATZOBLZ0Dub5AmZeqtn7kv/3NCWBrDaRCFahGYyiq', '/8UByex2ktrWATZOBLZ0DuER3Ee1GdP6f30TVIXoEhvhQDwghaU12'] 
+    group4Hash = ['/8UByex2ktrWATZOBLZ0DuAXTQl4mWX1hfSjliCvFfGH7w1tX5/3q','/8UByex2ktrWATZOBLZ0Dub5AmZeqtn7kv/3NCWBrDaRCFahGYyiq', '/8UByex2ktrWATZOBLZ0DuER3Ee1GdP6f30TVIXoEhvhQDwghaU12']
     group5Hash = ['rMeWZtAVcGHLEiDNeKCz8OiERmh0dh8AiNcf7ON3O3P0GWTABKh0O','rMeWZtAVcGHLEiDNeKCz8OMoFL0k33O8Lcq33f6AznAZ/cL1LAOyK', 'rMeWZtAVcGHLEiDNeKCz8Ose2KNe821.l2h5eLffzWoP01DlQb72O']
     group6Hash = ['6ypcazOOkUT/a7EwMuIjH.qbdqmHPDAC9B5c37RT9gEw18BX6FOay']
     groups_name = []
@@ -145,13 +145,14 @@ def getWords():
             if len(word) >= 6 or len(word) <=10:
                 words.append(word.encode('utf-8'))
     return words
-        
+
 
 def task_2():
     group_user, group_hash = openShadowFile()
+    exit()
     words = getWords()
     salts = []
-    salts.append("$J9FW66ZdPI2nrIMcOxFYI.")
+    salts.append("J9FW66ZdPI2nrIMcOxFYI.")
     salts.append("M9xNRFBDn0pUkPKIVCSBzu")
     salts.append("xGKjb94iwmlth954hEaw3O")
     salts.append("/8UByex2ktrWATZOBLZ0Du")
@@ -167,18 +168,19 @@ def task_2():
     # 3. Check the entire salt group at a time to reduce the amount of hashing
     # 4. If match, remove the name/hash from the list so you reduce comparisons
     # 5. Once you find a match for each person, move onto the next group
-        
-        
+
+
+
 def main():
     # Task 1a
     #d1, d2 = task1_generate_digest()
 
     # Task 1b
     #task_1b()
-    
+
     # Task 2
     task_2()
 
-    
+
 
 main()
