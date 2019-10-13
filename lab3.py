@@ -149,14 +149,14 @@ def getWords():
 
 def task_2():
     group_user, group_hash = openShadowFile()
-    words = getWords()
-    salts = []
-    salts.append("J9FW66ZdPI2nrIMcOxFYI.")
-    salts.append("M9xNRFBDn0pUkPKIVCSBzu")
-    salts.append("xGKjb94iwmlth954hEaw3O")
-    salts.append("/8UByex2ktrWATZOBLZ0Du")
-    salts.append("rMeWZtAVcGHLEiDNeKCz8O")
-    salts.append("6ypcazOOkUT/a7EwMuIjH.")
+    words = list(set(getWords()))
+    # salts = []
+    # salts.append("J9FW66ZdPI2nrIMcOxFYI.")
+    # salts.append("M9xNRFBDn0pUkPKIVCSBzu")
+    # salts.append("xGKjb94iwmlth954hEaw3O")
+    # salts.append("/8UByex2ktrWATZOBLZ0Du")
+    # salts.append("rMeWZtAVcGHLEiDNeKCz8O")
+    # salts.append("6ypcazOOkUT/a7EwMuIjH.")
     salts_and_hashes = ['$2b$08$J9FW66ZdPI2nrIMcOxFYI.qx268uZn.ajhymLP/YHaAsfBGP3Fnmq', '$2b$08$J9FW66ZdPI2nrIMcOxFYI.q2PW6mqALUl2/uFvV9OFNPmHGNPa6YC', '$2b$08$J9FW66ZdPI2nrIMcOxFYI.6B7jUcPdnqJz4tIUwKBu8lNMs5NdT9q',
     '$2b$09$M9xNRFBDn0pUkPKIVCSBzuwNDDNTMWlvn7lezPr8IwVUsJbys3YZm', '$2b$09$M9xNRFBDn0pUkPKIVCSBzuPD2bsU1q8yZPlgSdQXIBILSMCbdE4Im', '$2b$10$xGKjb94iwmlth954hEaw3O3YmtDO/mEFLIO0a0xLK1vL79LA73Gom',
     '$2b$10$xGKjb94iwmlth954hEaw3OFxNMF64erUqDNj6TMMKVDcsETsKK5be', '$2b$10$xGKjb94iwmlth954hEaw3OcXR2H2PRHCgo98mjS11UIrVZLKxyABK', '$2b$11$/8UByex2ktrWATZOBLZ0DuAXTQl4mWX1hfSjliCvFfGH7w1tX5/3q',
@@ -164,9 +164,8 @@ def task_2():
     '$2b$12$rMeWZtAVcGHLEiDNeKCz8OMoFL0k33O8Lcq33f6AznAZ/cL1LAOyK', '$2b$12$rMeWZtAVcGHLEiDNeKCz8Ose2KNe821.l2h5eLffzWoP01DlQb72O', '$2b$13$6ypcazOOkUT/a7EwMuIjH.qbdqmHPDAC9B5c37RT9gEw18BX6FOay']
     users = ["Bilbo", "Gandalf", "Thorin",'Fili', 'Kili','Balin', 'Dwalin', 'Oin', 'Gloin', 'Dori', 'Nori','Ori', 'Bifur', 'Bofur','Durin']
     ##this was to check the lengths of the salts were all good
-    ##for s in salts_and_hashes:
-    ##    print(s,len(s))
-    ##exit()
+    for s in salts_and_hashes:
+        print(s,len(s))
     # TODO Finish here salts are indexed according to group
     # group_user is list of string lists
     # group_hash is list of string lists
@@ -177,13 +176,14 @@ def task_2():
     # 4. If match, remove the name/hash from the list so you reduce comparisons
     # 5. Once you find a match for each person, move onto the next group
     users_and_pws = []
+    start_time = time.time()
     for word in words:
         for i in range(len(users)):
             # this will check the word to see if it is the pw that resulted
             # in the salt.hash string
 
             if bcrypt.checkpw(word.encode('utf8'),salts_and_hashes[i].encode('utf8')):
-                user_and_pws.add((users[i],word))
+                user_and_pws.add((users[i],word,(time.time()-start_time)))
                 salts_and_hashes.remove(salts_and_hashes[i])
                 users.remove(users[i])
                 print(users_and_pws)
