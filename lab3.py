@@ -143,7 +143,7 @@ def getWords():
     for book in nltk.corpus.gutenberg.fileids():
         for word in nltk.corpus.gutenberg.words(book):
             if len(word) >= 6 or len(word) <=10:
-                words.append(word.encode('utf-8'))
+                words.append(word)
     return words
 
 
@@ -157,12 +157,16 @@ def task_2():
     salts.append("/8UByex2ktrWATZOBLZ0Du")
     salts.append("rMeWZtAVcGHLEiDNeKCz8O")
     salts.append("6ypcazOOkUT/a7EwMuIjH.")
-    salts_and_hashes = ['$J9FW66ZdPI2nrIMcOxFYI.qx268uZn.ajhymLP/YHaAsfBGP3Fnm', '$J9FW66ZdPI2nrIMcOxFYI.q2PW6mqALUl2/uFvV9OFNPmHGNPa6YC', '$J9FW66ZdPI2nrIMcOxFYI.6B7jUcPdnqJz4tIUwKBu8lNMs5NdT9q',
-    '$M9xNRFBDn0pUkPKIVCSBzuwNDDNTMWlvn7lezPr8IwVUsJbys3YZm', '$M9xNRFBDn0pUkPKIVCSBzuPD2bsU1q8yZPlgSdQXIBILSMCbdE4Im', '$xGKjb94iwmlth954hEaw3O3YmtDO/mEFLIO0a0xLK1vL79LA73Gom',
-    '$xGKjb94iwmlth954hEaw3OFxNMF64erUqDNj6TMMKVDcsETsKK5be', '$xGKjb94iwmlth954hEaw3OcXR2H2PRHCgo98mjS11UIrVZLKxyABK', '$/8UByex2ktrWATZOBLZ0DuAXTQl4mWX1hfSjliCvFfGH7w1tX5/3q',
-    '$/8UByex2ktrWATZOBLZ0Dub5AmZeqtn7kv/3NCWBrDaRCFahGYyiq', '$/8UByex2ktrWATZOBLZ0DuER3Ee1GdP6f30TVIXoEhvhQDwghaU12', '$rMeWZtAVcGHLEiDNeKCz8OiERmh0dh8AiNcf7ON3O3P0GWTABKh0O',
-    '$rMeWZtAVcGHLEiDNeKCz8OMoFL0k33O8Lcq33f6AznAZ/cL1LAOyK', '$rMeWZtAVcGHLEiDNeKCz8Ose2KNe821.l2h5eLffzWoP01DlQb72O', '$6ypcazOOkUT/a7EwMuIjH.qbdqmHPDAC9B5c37RT9gEw18BX6FOay']
+    salts_and_hashes = ['$2b$08$J9FW66ZdPI2nrIMcOxFYI.qx268uZn.ajhymLP/YHaAsfBGP3Fnmq', '$2b$08$J9FW66ZdPI2nrIMcOxFYI.q2PW6mqALUl2/uFvV9OFNPmHGNPa6YC', '$2b$08$J9FW66ZdPI2nrIMcOxFYI.6B7jUcPdnqJz4tIUwKBu8lNMs5NdT9q',
+    '$2b$09$M9xNRFBDn0pUkPKIVCSBzuwNDDNTMWlvn7lezPr8IwVUsJbys3YZm', '$2b$09$M9xNRFBDn0pUkPKIVCSBzuPD2bsU1q8yZPlgSdQXIBILSMCbdE4Im', '$2b$10$xGKjb94iwmlth954hEaw3O3YmtDO/mEFLIO0a0xLK1vL79LA73Gom',
+    '$2b$10$xGKjb94iwmlth954hEaw3OFxNMF64erUqDNj6TMMKVDcsETsKK5be', '$2b$10$xGKjb94iwmlth954hEaw3OcXR2H2PRHCgo98mjS11UIrVZLKxyABK', '$2b$11$/8UByex2ktrWATZOBLZ0DuAXTQl4mWX1hfSjliCvFfGH7w1tX5/3q',
+    '$2b$11$/8UByex2ktrWATZOBLZ0Dub5AmZeqtn7kv/3NCWBrDaRCFahGYyiq', '$2b$11$/8UByex2ktrWATZOBLZ0DuER3Ee1GdP6f30TVIXoEhvhQDwghaU12', '$2b$12$rMeWZtAVcGHLEiDNeKCz8OiERmh0dh8AiNcf7ON3O3P0GWTABKh0O',
+    '$2b$12$rMeWZtAVcGHLEiDNeKCz8OMoFL0k33O8Lcq33f6AznAZ/cL1LAOyK', '$2b$12$rMeWZtAVcGHLEiDNeKCz8Ose2KNe821.l2h5eLffzWoP01DlQb72O', '$2b$13$6ypcazOOkUT/a7EwMuIjH.qbdqmHPDAC9B5c37RT9gEw18BX6FOay']
     users = ["Bilbo", "Gandalf", "Thorin",'Fili', 'Kili','Balin', 'Dwalin', 'Oin', 'Gloin', 'Dori', 'Nori','Ori', 'Bifur', 'Bofur','Durin']
+    ##this was to check the lengths of the salts were all good
+    ##for s in salts_and_hashes:
+    ##    print(s,len(s))
+    ##exit()
     # TODO Finish here salts are indexed according to group
     # group_user is list of string lists
     # group_hash is list of string lists
@@ -177,9 +181,8 @@ def task_2():
         for i in range(len(users)):
             # this will check the word to see if it is the pw that resulted
             # in the salt.hash string
-            print(word)
-            print(salts_and_hashes[i])
-            if bcrypt.checkpw(word,salts_and_hashes[i]):
+
+            if bcrypt.checkpw(word.encode('utf8'),salts_and_hashes[i].encode('utf8')):
                 user_and_pws.add((users[i],word))
                 salts_and_hashes.remove(salts_and_hashes[i])
                 users.remove(users[i])
