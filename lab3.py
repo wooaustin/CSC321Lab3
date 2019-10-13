@@ -149,7 +149,6 @@ def getWords():
 
 def task_2():
     group_user, group_hash = openShadowFile()
-    exit()
     words = getWords()
     salts = []
     salts.append("J9FW66ZdPI2nrIMcOxFYI.")
@@ -178,7 +177,9 @@ def task_2():
         for i in range(len(users)):
             # this will check the word to see if it is the pw that resulted
             # in the salt.hash string
-            if bcrypt.checkpw(word,salts_and_hashs[i]):
+            print(word)
+            print(salts_and_hashes[i])
+            if bcrypt.checkpw(word,salts_and_hashes[i]):
                 user_and_pws.add((users[i],word))
                 salts_and_hashes.remove(salts_and_hashes[i])
                 users.remove(users[i])
