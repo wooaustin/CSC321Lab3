@@ -177,6 +177,7 @@ def task_2():
     # 5. Once you find a match for each person, move onto the next group
     users_and_pws = []
     start_time = time.time()
+
     for word in words:
         for i in range(len(users)):
             # this will check the word to see if it is the pw that resulted
@@ -189,7 +190,15 @@ def task_2():
                 print(users_and_pws)
 
     with open('users_passwords.txt', 'w') as file:
-        file.write(users_and_pws)
+        for upt in users_and_pws:
+            file.write(upt[0])
+            file.write("\n")
+            file.write(upt[1])
+            file.write("\n")
+            file.write(str(upt[2]))
+            file.write("\n\n")
+
+
 
 
 
